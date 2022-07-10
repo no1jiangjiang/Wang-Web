@@ -1,0 +1,246 @@
+body{
+    width: 1365px;
+    height: 953px;
+    display: flex;
+    flex-direction:column;
+    background-color: #f0f0f0;
+}
+h1{
+    margin-left:800px;
+    margin-right:auto;
+}
+my-box{
+    width: 256px;
+    height: 100%;
+    background-color: #fff;
+    margin-top: -.1px;
+    padding-top: .1px;
+}
+box-item{
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    display: flex;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+}
+h2{
+    display: inline;
+    position:absolute;
+    width: 1600px;
+    min-height: 250px;
+    max-height: 500px;
+    top:200px;
+    left: 300px;
+    text-indent: 200px;
+    
+}
+road-info{
+    display: none;
+    position:absolute;
+    width: 1400px;
+    height: 800px;
+    max-height: 800px;
+    top:100px;
+    left: 300px;
+    background-color: white;
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.3), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+query{
+    display: flex;
+    flex-direction: row;
+}
+query-item{
+    display: flex;
+    flex-direction: column;
+    padding-left: 90px;
+    padding-right: 90px;
+    width: 25%;
+}
+input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 175px;
+    height: 42px;
+    text-align: center;
+}
+.input-item{
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+query-btn{
+    display: flex;
+    flex-direction: column;
+    width: 175px;
+    height: 50px;
+    text-align: center;
+    color: #fff;
+    background-color: 40A9FF;
+    border-radius: 4px;
+    padding-top: 20px;
+}
+info-box-h{
+    display: flex;
+    flex-direction: column;
+    width: 1300px;
+    max-width: 1400px;
+    height: 80px;
+    margin-left: 50px;
+}
+info-box{
+    display: flex;
+    flex-direction: column;
+    width: 1300px;
+    max-width: 1400px;
+    height: 300px;
+    max-height: 300px;
+    margin-left: 50px;
+}
+info-box-item{
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+}
+add{
+    width: 70px;
+    height: 30px;
+    background-color: 40A9FF;
+    text-align: center;
+    margin-left: 1175px;
+    color: #FFF;
+}
+item-h{
+    width: 200px;
+    height: 30px;
+    padding-top: 10px;
+    text-align: center;
+    border-right:1px solid #f0f0f0;
+    background-color: #fafafa;
+}
+item{
+    width: 200px;
+    height: 30px;
+    text-align: center;
+    border-right:1px solid #f0f0f0;
+}
+a{
+    width:50px;
+    height: 30px;
+    border-radius:4px;
+    margin: 5px;
+    background-color:40A9FF;
+    color:#fff;
+}
+road-inspection{
+    display: none;
+    position:absolute;
+    flex-direction: row;
+    width: 1400px;
+    height: 800px;
+    max-height: 800px;
+    top:100px;
+    left: 300px;
+    background-color: white;
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.3), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+in-sel-box{
+    width: 200px;
+    height: 100%;
+    background-color: #fff;
+    border-right: 1px solid #cac9c9;
+}
+.in-box-item{
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+}
+.insp-item{
+    display: none;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.insp-window{
+    width:1200px;
+    max-width: 1400px;
+    height: 270px;
+    max-height: 270px;
+}
+plan-add{
+    width: 70px;
+    height: 30px;
+    background-color: 40A9FF;
+    text-align: center;
+    margin-left:1020px;
+    color: #FFF;
+}
+hes-que{
+        width: 70px;
+        height: 30px;
+        background-color: 40A9FF;
+        margin-left: 1020px;
+        text-align: center;
+        color: #FFF;
+}
+hes-btn-box{
+    width: 294px;
+    height: 62px;
+    margin-left:970px;
+}
+hesandplan-item{
+    width: 171.42px;
+    height: 30px;
+    padding-top: 10px;
+    text-align: center;
+    border-right:1px ;
+
+}
+.hesandplan-box{
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    max-width: 1200px;
+    height: 200px;
+    max-height: 200px;
+}
+xuncha-window{
+    display: none;
+    flex-direction: column;
+    position:absolute;
+    top:100px;
+    left:600px;
+    background-color: #fafafa;
+}
+xuncha-window-box{
+    display: flex;
+    flex-direction: column;
+}
+sunhuai-manage{
+    display: none;
+    position:absolute;
+    flex-direction: row;
+    width: 1400px;
+    height: 800px;
+    max-height: 800px;
+    top:100px;
+    left: 300px;
+    background-color: white;
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.3), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+sunhuai-window{
+    overflow: auto;
+    width: 1200px;
+    max-width: 1200px;
+    height: 700px;
+    max-height: 700px;
+}
+sunhuai-item{
+    width: 200px;
+    height: 30px;
+    padding-top: 10px;
+    text-align: center;
+    border-right:1px ;
+}

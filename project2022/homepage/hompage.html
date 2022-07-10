@@ -1,0 +1,739 @@
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="homepage.css">
+  <script rel="stylesheet"  type="text/javascript" src="homepage.js">
+  </script>
+  <style>
+    .bg{
+      color: #fff;
+      background-color: 40A9FF;
+    }
+
+  </style>
+
+</head>
+  <h1>城市桥梁养护信息管理系统</h1>
+<body>
+  <my-box>
+    <box-item id="box-item1" onclick=road_info_btn()>桥梁信息</box-item>
+    <box-item id="box-item2" onclick=road_check_btn()>桥梁检查</box-item>
+    <box-item id="box-item3" onclick=damage_management_btn()>损坏管理</box-item>
+    <box-item id="box-item4" onclick=statement_btn()>结业报告</box-item>
+    <box-item onclick=exit_btn()>退出</box-item>
+    <script>
+      var ps = document.getElementsByTagName("box-item")
+      for(var i in ps){
+      ps[i].onmouseover = function(){
+              this.setAttribute("class","bg")
+          }
+          ps[i].onmouseout = function(){
+                  this.removeAttribute("class")
+              }
+      }
+  </script>
+  </my-box>
+  <h2 id="my-h2">欢迎来到城市桥梁养护信息管理系统！</h2>
+  <road-info id="road-info">
+    <h4 style="margin-left:10px;">查询条件（可部分填写）</h4>
+    <query>
+      <query-item>
+        <input id="in_begin" type="text" placeholder="起点"></input>
+        <input id="in_end" type="text" placeholder="终点"></input>
+      </query-item>
+      <query-item>
+        <input id="in_name" type="text" placeholder="桥梁名称"></input>
+        <input id="in_id" type="text" placeholder="桥梁编号"></input>
+      </query-item>
+      <query-item>
+        <input id="in_type" type="text" placeholder="桥梁类型"></input>
+        <input id="in_grade" type="text" placeholder="桥梁等级"></input>
+      </query-item>
+      <query-item style="padding-top: 25px;" onclick=query_btn()>
+        <query-btn>查询</query-btn>
+      </query-item>
+    </query>
+    <h4 style="margin-left:10px;">查询结果</h4>
+    <info-box-h>
+      <add onclick=add_btn()>添加</add>
+      <info-box-item>
+        <item-h>桥梁编号</item-h>
+        <item-h>桥梁名称</item-h>
+        <item-h>起点</item-h>
+        <item-h>终点</item-h>
+        <item-h>桥梁类型</item-h>
+        <item-h>桥梁等级</item-h>
+        <item-h>操作</item-h>
+      </info-box-item>
+    </info-box-h>
+    <info-box id="info_box" style="overflow-y:auto;">
+    </info-box>
+  </road-info>
+  
+  <road-inspection id="road-inspection">
+    <in-sel-box id="in-sel-box">
+      <box-item id="item-daily" onclick=daily_btn()>日常检查</box-item>
+      <script>
+        var ps = document.getElementsByTagName("box-item")
+        for(var i in ps){
+        ps[i].onmouseover = function(){
+                this.setAttribute("class","bg")
+            }
+            ps[i].onmouseout = function(){
+                    this.removeAttribute("class")
+                }
+        }
+    </script>
+    </in-sel-box>
+    <daily-inspection class="insp-item" id="daily-inspection">
+      <h4 style="margin-left:10px;">日常巡查历史</h4>
+      <hes-btn-box ><input id="hes_que_in" type="date" min="1900-01-01" max="2060-01-01" placeholder="巡查日期" > </input></hes-btn-box>
+      <hes-que onclick=hes_que_btn()>查询</hes-que>
+      <insp-hes class="insp-window" id="insp-hes">
+          <hes-h>
+            <hes-box-item class="in-box-item">
+            <item-h>巡查日期</item-h>
+            <item-h>巡查人员</item-h>
+            <item-h>桥梁编号</item-h>
+            <item-h>桥梁名称</item-h>
+            <item-h>管理单位</item-h>
+            <item-h>桥梁类型</item-h>
+            <item-h>操作</item-h>
+          </hes-box-item>
+          </hes-h>
+         <hes-box class="hesandplan-box" id="hes-box" style="overflow-y:auto;">
+          
+         </hes-box>
+      </insp-hes>
+      <h4 style="margin-left:10px;">日常巡查计划</h4>
+      <plan-add onclick=plan_add_btn()>添加</plan-add>
+      <insp-plan class="insp-window" id="insp-plan">
+        <plan-h>
+          <plan-box-item class="in-box-item">
+          <item-h>巡查日期</item-h>
+          <item-h>桥梁编号</item-h>
+          <item-h>桥梁名称</item-h>
+          <item-h>桥梁类型</item-h>
+          <item-h>巡查人员</item-h>
+          <item-h>备注</item-h>
+          <item-h>操作</item-h>
+        </plan-box-item>
+        </plan-h>
+        <plan-box class="hesandplan-box" id="plan-box" style="overflow-y:auto;">
+
+        </plan-box>
+      </insp-plan>
+    </daily-inspection>
+
+    <xuncha-window  id="xincha-window">
+      <h4>巡查情况填写</h4>
+      <input id="in_sunhuai_weizhi" type="text" list="mylist" placeholder="损坏位置"></input>
+      <datalist id="mylist">
+        <option value="无"></option>
+        <option value="桥面铺装"></option>
+        <option value="桥面平顺"></option>
+        <option value="伸缩缝"></option>
+        <option value="排水系统"></option>
+        <option value="栏杆或护栏"></option>
+        <option value="人行道块件"></option>
+        <option value="钢结构物"></option>
+        <option value="PC或RC梁式构件"></option>
+        <option value="横向联系"></option>
+        <option value="拱桥横向联系"></option>
+        <option value="防落梁装置"></option>
+        <option value="主拱圈"></option>
+        <option value="拱上构造"></option>
+        <option value="人行天桥外部装饰板"></option>
+        <option value="台帽盖梁"></option>
+        <option value="墩台身"></option>
+      </datalist>
+      <input id="in_sunhuai_type" type="text" list="mylist2" placeholder="损坏类型"></input>
+      <datalist id="mylist2">
+        <option value="网裂或龟裂"></option>
+        <option value="波浪及车辙"></option>
+        <option value="坑槽"></option>
+        <option value="碎裂或破碎"></option>
+        <option value="坑洞"></option>
+        <option value="桥面贯通横缝"></option>
+        <option value="桥面贯通纵缝"></option>
+        <option value="人行天桥桥面铺装变形"></option>
+        <option value="人行天桥桥面铺装磨损"></option>
+        <option value="人行天桥桥面铺装防滑能力"></option>
+        <option value="桥头沉降"></option>
+        <option value="台背下沉"></option>
+        <option value="螺帽松动"></option>
+        <option value="缝内沉积物堵塞"></option>
+        <option value="止水带破损、老化"></option>
+        <option value="钢材料破损"></option>
+        <option value="接缝外铺装碎边"></option>
+        <option value="接缝处高差"></option>
+        <option value="钢材料翘曲变形"></option>
+        <option value="结构缝宽异常"></option>
+        <option value="伸缩缝处异常声响"></option>
+        <option value="泄水管阻塞"></option>
+        <option value="残缺脱落"></option>
+        <option value="桥面积水"></option>
+        <option value="防水层"></option>
+        <option value="露筋锈蚀"></option>
+        <option value="松动错位"></option>
+        <option value="丢失残缺"></option>
+        <option value="变色起皮"></option>
+        <option value="油漆剥落"></option>
+        <option value="一般锈蚀"></option>
+        <option value="严重锈蚀"></option>
+        <option value="锈蚀成洞"></option>
+        <option value="焊缝裂纹"></option>
+        <option value="焊缝开裂"></option>
+        <option value="铆钉损失"></option>
+        <option value="螺栓松动"></option>
+        <option value="错位变形"></option>
+        <option value="表面裂缝"></option>
+        <option value="混凝土剥离"></option>
+        <option value="露筋锈蚀"></option>
+        <option value="梁体向下弯曲"></option>
+        <option value="结构裂缝"></option>
+        <option value="裂缝处渗水"></option>
+        <option value="桥面贯通横缝"></option>
+        <option value="梁体位移"></option>
+        <option value="桥面贯通纵缝"></option>
+        <option value="连接件脱焊松动"></option>
+        <option value="连接件断裂"></option>
+        <option value="横隔板网裂"></option>
+        <option value="横隔板剥落露筋"></option>
+        <option value="梁体异常振动"></option>
+        <option value="墩弯板网裂"></option>
+        <option value="墩弯板剥落露筋"></option>
+        <option value="连接件开裂"></option>
+        <option value="连接件剥落露筋"></option>
+        <option value="桥面贯通纵缝"></option>
+        <option value="有无落架趋势"></option>
+        <option value="牛腿表面损伤"></option>
+        <option value="伸缩缝处渗水"></option>
+        <option value="刚锚板锈蚀"></option>
+        <option value="桥面贯通横缝"></option>
+        <option value="主拱圈变形"></option>
+        <option value="砌体缺损"></option>
+        <option value="砌体脱落"></option>
+        <option value="砂浆松动缺失"></option>
+        <option value="表面风化损坏"></option>
+        <option value="表面网状裂缝"></option>
+        <option value="构件断裂"></option>
+        <option value="节点开裂"></option>
+        <option value="墩台成块剥落"></option>
+        <option value="墩身水平裂缝"></option>
+        <option value="墩身纵向裂缝"></option>
+        <option value="框架式节点裂缝"></option>
+        <option value="桥墩倾斜"></option>
+        <option value="桥面贯通横缝"></option>
+      </datalist>
+      <input id="in_sunhuai_begin" type="text" placeholder="损坏起点"></input>
+      <input id="in_sunhuai_end" type="text" placeholder="损坏终点"></input>
+      <input id="in_sunhuai_qingkuang" type="text" placeholder="损坏情况"></input>
+      <button id="in_sure">填写完成</button>
+      <button id="in_close" style="margin-top: 20px;" onclick=in_colse_btn()>关闭</button>
+    </xincha-window>
+
+  </road-inspection>
+
+  <sunhuai-manage id="sunhai-manage">
+    <in-sel-box id="sunhuai-sel-box">
+      <box-item id="item-sunque" onclick=sunhuai_que_btn()>损坏查看</box-item>
+      <box-item id="sunh-type" onclick=sunhuai_type_btn()>损坏类型</box-item>
+      <script>
+        var ps = document.getElementsByTagName("box-item")
+        for(var i in ps){
+        ps[i].onmouseover = function(){
+                this.setAttribute("class","bg")
+            }
+            ps[i].onmouseout = function(){
+                    this.removeAttribute("class")
+                }
+        }
+    </script>
+    </in-sel-box>
+    <sunhuai-window class="insp-item" id="sunhuai-window">
+      <hes-btn-box ><input id="sunhuai_que_in" type="date" min="1900-01-01" max="2060-01-01" placeholder="巡查日期" > </input></hes-btn-box>
+      <hes-que onclick=sunhuai_chaxun_btn()>查询</hes-que>
+      <hes-h>
+        <hes-box-item class="in-box-item">
+        <item-h>巡查日期</item-h>
+        <item-h>巡查人员</item-h>
+        <item-h>桥梁编号</item-h>
+        <item-h>桥梁名称</item-h>
+        <item-h>起点</item-h>
+        <item-h>终点</item-h>
+        <item-h>损坏位置</item-h>
+        <item-h>损坏类型</item-h>
+        <item-h>损坏情况</item-h>
+        <item-h>管理单位</item-h>
+      </hes-box-item>
+      </hes-h>
+      <sunhuai-box class="hesandplan-box" id="sunhuai-box">
+
+      </sunhuai-box>
+    </sunhuai-window>
+  </sunhuai-manage>
+
+  <script>
+
+    var in_id="",in_begin="",in_end="",in_name="",in_type="",in_grade="";
+    var road=[{id:1,name:"双福大道",begin:"重庆交通大学东",
+               end:"重庆交通大学西",type:"水泥",grade:"1"},
+               {id:2,name:"双福大道",begin:"重庆交通大学东",
+               end:"重庆交通大学西",type:"沥青",grade:"2"}]
+    function add_btn(){
+      var info_box_item=document.createElement("info-box-item")
+          var iid=document.createElement("input")
+          iid.className="input-item"
+          iid.type="text"
+          iid.placeholder="桥梁编号"
+          iid.id="iid"
+          var nname=document.createElement("input")
+          nname.className="input-item"
+          nname.type="text"
+          nname.placeholder="桥梁名称"
+          nname.id="nname"
+          var bbegin=document.createElement("input")
+          bbegin.className="input-item"
+          bbegin.type="text"
+          bbegin.placeholder="起点"
+          bbegin.id="bbegin"
+          var eend=document.createElement("input")
+          eend.className="input-item"
+          eend.type="text"
+          eend.placeholder="终点"
+          eend.id="eend"
+          var ttype=document.createElement("input")
+          ttype.className="input-item"
+          ttype.type="text"
+          ttype.placeholder="桥梁类型"
+          ttype.id="ttype"
+          var ggrade=document.createElement("input")
+          ggrade.className="input-item"
+          ggrade.type="text"
+          ggrade.placeholder="桥梁等级"
+          ggrade.id="ggrade"
+
+          var id_item=document.createElement("item")
+          var name_item=document.createElement("item")
+          var begin_item=document.createElement("item")
+          var end_item=document.createElement("item")
+          var type_item=document.createElement("item")
+          var grade_item=document.createElement("item")
+          var option=document.createElement("item")
+          var item_sure=document.createElement("a")
+          var item_delete=document.createElement("a")
+          item_sure.innerHTML="确定"
+          item_delete.innerHTML="删除"
+
+          item_sure.onclick=function (){
+          var in_iid="",in_bbegin="",in_eend="",in_nname="",in_ttype="",in_ggrade="";
+            in_iid=document.getElementById("iid").value;
+            in_bbegin=document.getElementById("bbegin").value;
+            in_eend=document.getElementById("eend").value;
+            in_nname=document.getElementById("nname").value;
+            in_ttype=document.getElementById("ttype").value;
+            in_ggrade=document.getElementById("ggrade").value;
+            console.log(in_iid,in_bbegin,in_eend,in_nname,in_ttype,in_ggrade)
+            var rroad={id:"",name:"",begin:"",end:"",type:"",grade:""}
+            if(in_iid==""||in_bbegin==""||in_eend==""||in_nname==""||in_ttype==""||in_ggrade=="")
+            alert("属性值不能为空!")
+            else{
+              rroad.id=in_iid
+              rroad.begin=in_bbegin
+              rroad.end=in_eend
+              rroad.name=in_nname
+              rroad.type=in_ttype
+              rroad.grade=in_ggrade
+              road.push(rroad)
+              query_btn()
+            }
+    }
+          id_item.appendChild(iid)
+          name_item.appendChild(nname)
+          begin_item.appendChild(bbegin)
+          end_item.appendChild(eend)
+          type_item.appendChild(ttype)
+          grade_item.appendChild(ggrade)
+
+          info_box_item.appendChild(id_item)
+          info_box_item.appendChild(name_item)
+          info_box_item.appendChild(begin_item)
+          info_box_item.appendChild(end_item)
+          info_box_item.appendChild(type_item)
+          info_box_item.appendChild(grade_item)
+          option.appendChild(item_sure)
+          option.appendChild(item_delete)
+          info_box_item.appendChild(option)
+          var info_box=document.getElementById("info_box")
+          info_box.appendChild(info_box_item)
+    }
+    function query_btn(){
+      document.getElementById("info_box").innerHTML=null
+      in_id=document.getElementById("in_id").value;
+      in_begin=document.getElementById("in_begin").value;
+      in_end=document.getElementById("in_end").value;
+      in_name=document.getElementById("in_name").value;
+      in_type=document.getElementById("in_type").value;
+      in_grade=document.getElementById("in_grade").value;
+    for(var i=0;i<road.length;i++){
+      if(
+        (in_id==""||in_id==road[i].id)&&
+        (in_name==""||in_name==road[i].name)&&
+        (in_begin==""||in_begin==road[i].begin)&&
+        (in_end==""||in_end==road[i].end)&&
+        (in_type==""||in_type==road[i].type)&&
+        (in_grade==""||in_grade==road[i].grade)
+        ){
+          var info_box_item=document.createElement("info-box-item")
+          var id=document.createElement("item")
+          var name=document.createElement("item")
+          var begin=document.createElement("item")
+          var end=document.createElement("item")
+          var type=document.createElement("item")
+          var grade=document.createElement("item")
+          var option=document.createElement("item")
+          var item_details=document.createElement("a")
+          var item_delete=document.createElement("a")
+          item_delete.id=road[i].id
+          item_delete.onclick=function(){
+            console.log(this.id)
+            for(var j=0;j<road.length;j++){
+              if(road[j].id==this.id){
+                road.splice(j,1)
+                console.log(road)
+              }
+            }
+            query_btn()
+          }
+          id.innerHTML=road[i].id
+          name.innerHTML=road[i].name
+          begin.innerHTML=road[i].begin
+          end.innerHTML=road[i].end
+          type.innerHTML=road[i].type
+          grade.innerHTML=road[i].grade
+          item_details.innerHTML="详情"
+          item_delete.innerHTML="删除"
+          info_box_item.appendChild(id)
+          info_box_item.appendChild(name)
+          info_box_item.appendChild(begin)
+          info_box_item.appendChild(end)
+          info_box_item.appendChild(type)
+          info_box_item.appendChild(grade)
+          option.appendChild(item_details)
+          option.appendChild(item_delete)
+          info_box_item.appendChild(option)
+          var info_box=document.getElementById("info_box")
+          info_box.appendChild(info_box_item)
+        }
+      }
+    }
+
+
+    var insp_hes=[{
+      date:"2022-06-06",worker:"张三",manage_unit:"重庆交通大学",
+      id:1,name:"双福大道",type:"水泥"},
+      {
+      date:"2022-06-07",worker:"李四",manage_unit:"重庆交通大学",
+      id:2,name:"双福大道",type:"沥青"}
+      ]
+    var insp_plan=[{
+      date:"2022-06-08",worker:"王五",manage_unit:"重庆交通大学",beizhu:"日常",
+      id:3,name:"双福大道",type:"实木"}]
+    var sunhuaiqingkuang=[{date:"2022-06-01",worker:"王五",id:1,name:"双福大道",begin:"小面馆门口",end:"重庆交通大学东门",
+                          weizhi:"桥面",type:"桥面龟裂",qingkuang:"严重",unit:"重庆交通大学"}]
+
+    function hes_que_btn(){
+      var hes_que_in ="";
+      hes_que_in=document.getElementById("hes_que_in").value;
+      var hes_boxE = document.getElementById("hes-box");
+      hes_boxE.innerHTML=null;
+      for(var i=0;i<insp_hes.length;i++){
+        if(insp_hes[i].date==hes_que_in||hes_que_in==""){
+          var hes_box_item=document.createElement("hes_box_item");
+          hes_box_item.className="in-box-item"
+          var hes_box_dateE=document.createElement("hesandplan-item");
+          var hes_box_workerE=document.createElement("hesandplan-item");
+          var hes_box_unitE=document.createElement("hesandplan-item");
+          var hes_box_idE=document.createElement("hesandplan-item");
+          var hes_box_nameE=document.createElement("hesandplan-item");
+          var hes_box_typeE=document.createElement("hesandplan-item");
+          var option=document.createElement("hesandplan-item");
+          var item_delete=document.createElement("a")
+          item_delete.date=insp_hes[i].date
+          item_delete.worker=insp_hes[i].worker
+          item_delete.manage_unit=insp_hes[i].manage_unit
+          item_delete.hesid=insp_hes[i].hesid
+          item_delete.hesname=insp_hes[i].hesname
+          item_delete.hestype=insp_hes[i].hestype
+          item_delete.onclick=function(){
+            for(var j=0;j<insp_hes.length;j++){
+              if( this.date==insp_hes[j].date&&
+                  this.worker==insp_hes[j].worker&&
+                  this.manage_unit==insp_hes[j].manage_unit&&
+                  this.hesid==insp_hes[j].hesid&&
+                  this.hesname==insp_hes[j].hesname&&
+                  this.hestype==insp_hes[j].hestype){
+                insp_hes.splice(j,1)
+              }
+            }
+            hes_que_btn()
+          }
+
+          hes_box_dateE.innerHTML=insp_hes[i].date;
+          hes_box_workerE.innerHTML=insp_hes[i].worker;
+          hes_box_unitE.innerHTML=insp_hes[i].manage_unit;
+          hes_box_idE.innerHTML=insp_hes[i].id;
+          hes_box_nameE.innerHTML=insp_hes[i].name;
+          hes_box_typeE.innerHTML=insp_hes[i].type;
+          item_delete.innerHTML="删除"
+          option.appendChild(item_delete);
+
+          hes_box_item.appendChild(hes_box_dateE);
+          hes_box_item.appendChild(hes_box_workerE);
+          hes_box_item.appendChild(hes_box_idE);
+          hes_box_item.appendChild(hes_box_nameE);
+          hes_box_item.appendChild(hes_box_unitE);
+          hes_box_item.appendChild(hes_box_typeE);
+          hes_box_item.appendChild(option);
+
+
+          hes_boxE.appendChild(hes_box_item);
+        }
+        
+      }
+      
+    }
+    function plan_que_btn(){
+      var plan_boxE = document.getElementById("plan-box");
+      plan_boxE.innerHTML=null;
+      for(var i=0;i<insp_plan.length;i++){
+          var plan_box_item=document.createElement("plan_box_item");
+          plan_box_item.className="in-box-item"
+          var plan_box_dateE=document.createElement("hesandplan-item");
+          var plan_box_workerE=document.createElement("hesandplan-item");
+          var plan_box_beizhuE=document.createElement("hesandplan-item");
+          var plan_box_idE=document.createElement("hesandplan-item");
+          var plan_box_nameE=document.createElement("hesandplan-item");
+          var plan_box_typeE=document.createElement("hesandplan-item");
+          var option=document.createElement("hesandplan-item");
+          var xuncha=document.createElement("a");
+          xuncha.date=insp_plan[i].date
+          xuncha.worker=insp_plan[i].worker
+          xuncha.manage_unit=insp_plan[i].manage_unit
+          xuncha.hesid=insp_plan[i].id
+          xuncha.hesname=insp_plan[i].name
+          xuncha.hestype=insp_plan[i].type
+          xuncha.onclick=function(){
+            var t1,t2,t3,t4,t5,t6
+              t1=this.date
+              t2=this.worker
+              t3=this.manage_unit
+              t4=this.hesid
+              t5=this.hesname
+              t6=this.hestype
+            document.getElementById("xincha-window").style.display="flex"
+            document.getElementById("in_sure").onclick=
+            function in_sure_btn(){
+              for(var j=0;j<insp_plan.length;j++){
+              if( t1==insp_plan[j].date&&
+                  t2==insp_plan[j].worker&&
+                  t3==insp_plan[j].manage_unit&&
+                  t4==insp_plan[j].id&&
+                  t5==insp_plan[j].name&&
+                  t6==insp_plan[j].type){
+                insp_plan.splice(j,1)
+              }
+            }
+            plan_que_btn()
+            var hes={ date:"",worker:"",manage_unit:"",id:0,name:"",type:""}
+            hes.date=t1
+            hes.worker=t2
+            hes.manage_unit=t3
+            hes.id=t4
+            hes.name=t5
+            hes.type=t6
+            insp_hes.push(hes);
+            hes_que_btn()
+              if(document.getElementById("in_sunhuai_weizhi").value!="无"){
+            var sunhuai_item={date:"2022-06-01",worker:"王五",id:1,name:"双福大道",begin:"小面馆门口",end:"重庆交通大学东门",
+                          weizhi:"桥面",type:"桥面龟裂",qingkuang:"严重",unit:"重庆交通大学"}
+            sunhuai_item.date=t1
+            sunhuai_item.worker=t2
+            sunhuai_item.id=t4
+            sunhuai_item.name=t5
+            sunhuai_item.begin=document.getElementById("in_sunhuai_begin").value
+            sunhuai_item.end=document.getElementById("in_sunhuai_end").value
+            sunhuai_item.weizhi=document.getElementById("in_sunhuai_weizhi").value
+            sunhuai_item.type=document.getElementById("in_sunhuai_type").value
+            sunhuai_item.qingkuang=document.getElementById("in_sunhuai_qingkuang").value
+            sunhuai_item.unit=t3
+            sunhuaiqingkuang.push(sunhuai_item)
+            console.log(sunhuaiqingkuang)
+              }
+              document.getElementById("xincha-window").style.display="none"
+            }
+            
+          }
+          xuncha.innerHTML="巡查"
+          plan_box_dateE.innerHTML=insp_plan[i].date;
+          plan_box_workerE.innerHTML=insp_plan[i].worker;
+          plan_box_beizhuE.innerHTML=insp_plan[i].beizhu;
+          plan_box_idE.innerHTML=insp_plan[i].id;
+          plan_box_nameE.innerHTML=insp_plan[i].name;
+          plan_box_typeE.innerHTML=insp_plan[i].type;
+          option.appendChild(xuncha);
+
+          plan_box_item.appendChild(plan_box_dateE);
+          plan_box_item.appendChild(plan_box_idE);
+          plan_box_item.appendChild(plan_box_nameE);
+          plan_box_item.appendChild(plan_box_typeE);
+          plan_box_item.appendChild(plan_box_workerE);
+          plan_box_item.appendChild(plan_box_beizhuE);
+          plan_box_item.appendChild(option);
+
+
+          plan_boxE.appendChild(plan_box_item);
+
+      }
+    }
+    function plan_add_btn(){
+      var plan_box_item=document.createElement("plan_box_item");
+          plan_box_item.className="in-box-item"
+          var iid=document.createElement("input")
+          iid.className="input-item"
+          iid.type="text"
+          iid.placeholder="桥梁编号"
+          iid.id="iid"
+          var nname=document.createElement("input")
+          nname.className="input-item"
+          nname.type="text"
+          nname.placeholder="桥梁名称"
+          nname.id="nname"
+          var wworker=document.createElement("input")
+          wworker.className="input-item"
+          wworker.type="text"
+          wworker.placeholder="巡查人员"
+          wworker.id="wworker"
+          var bbeizhu=document.createElement("input")
+          bbeizhu.className="input-item"
+          bbeizhu.type="text"
+          bbeizhu.placeholder="备注"
+          bbeizhu.id="bbeizhu"
+          var ttype=document.createElement("input")
+          ttype.className="input-item"
+          ttype.type="text"
+          ttype.placeholder="桥梁类型"
+          ttype.id="ttype"
+          var ddate=document.createElement("input")
+          ddate.className="input-item"
+          ddate.type="date"
+          ddate.min="1900-01-01"
+          ddate.max="2060-01-01"
+          ddate.placeholder="巡查日期"
+          ddate.id="ddate"
+
+
+          var id_item=document.createElement("hesandplan-item")
+          var name_item=document.createElement("hesandplan-item")
+          var worker_item=document.createElement("hesandplan-item")
+          var beizhu_item=document.createElement("hesandplan-item")
+          var type_item=document.createElement("hesandplan-item")
+          var date_item=document.createElement("hesandplan-item")
+          var option=document.createElement("hesandplan-item")
+          var item_sure=document.createElement("a")
+          var item_delete=document.createElement("a")
+          item_sure.innerHTML="确定"
+          item_delete.innerHTML="删除"
+
+          item_sure.onclick=function (){
+          var in_iid="",in_wworker="",in_bbeizhu="",in_nname="",in_ttype="",in_ddate="";
+            in_iid=document.getElementById("iid").value;
+            in_wworker=document.getElementById("wworker").value;
+            in_bbeizhu=document.getElementById("bbeizhu").value;
+            in_nname=document.getElementById("nname").value;
+            in_ttype=document.getElementById("ttype").value;
+            in_ddate=document.getElementById("ddate").value;
+            var pplan={date:"",worker:"",manage_unit:"重庆交通大学",beizhu:"",id:-1,name:"",type:""}
+            if(in_iid==""||in_wworker==""||in_bbeizhu==""||in_nname==""||in_ttype==""||in_ddate=="")
+            alert("属性值不能为空!")
+            else{
+              pplan.id=in_iid
+              pplan.worker=in_wworker
+              pplan.beizhu=in_bbeizhu
+              pplan.name=in_nname
+              pplan.type=in_ttype
+              pplan.date=in_ddate
+              insp_plan.push(pplan)
+              plan_que_btn()
+            }
+    }
+
+          date_item.appendChild(ddate)
+          id_item.appendChild(iid)
+          name_item.appendChild(nname)
+          type_item.appendChild(ttype)
+          worker_item.appendChild(wworker)
+          beizhu_item.appendChild(bbeizhu)
+
+          plan_box_item.appendChild(date_item)
+          plan_box_item.appendChild(id_item)
+          plan_box_item.appendChild(name_item)
+          plan_box_item.appendChild(type_item)
+          plan_box_item.appendChild(worker_item)
+          plan_box_item.appendChild(beizhu_item)
+          option.appendChild(item_sure)
+          option.appendChild(item_delete)
+          plan_box_item.appendChild(option)
+          var plan_box=document.getElementById("plan-box")
+          plan_box.appendChild(plan_box_item)
+    }
+    
+    function sunhuai_chaxun_btn(){
+      var sunhuai_box=document.getElementById("sunhuai-box");
+      sunhuai_box.innerHTML=null;
+      var indate="";
+      indate=document.getElementById("sunhuai_que_in").value;
+      for(var i=0;i<sunhuaiqingkuang.length;i++){
+        if(indate==""||indate==sunhuaiqingkuang[i].date){
+          var sunhuai_box_item=document.createElement("sunhuai_box_item");
+          sunhuai_box_item.className="in-box-item";
+          var dateE=document.createElement("sunhuai-item");
+          var workerE=document.createElement("sunhuai-item");
+          var idE=document.createElement("sunhuai-item");
+          var nameE=document.createElement("sunhuai-item");
+          var beginE=document.createElement("sunhuai-item");
+          var endE=document.createElement("sunhuai-item");
+          var weizhiE=document.createElement("sunhuai-item");
+          var typeE=document.createElement("sunhuai-item");
+          var qingkuangE=document.createElement("sunhuai-item");
+          var unitE=document.createElement("sunhuai-item");
+          dateE.innerHTML=sunhuaiqingkuang[i].date
+          workerE.innerHTML=sunhuaiqingkuang[i].worker
+          idE.innerHTML=sunhuaiqingkuang[i].id
+          nameE.innerHTML=sunhuaiqingkuang[i].name
+          beginE.innerHTML=sunhuaiqingkuang[i].begin
+          endE.innerHTML=sunhuaiqingkuang[i].end
+          weizhiE.innerHTML=sunhuaiqingkuang[i].weizhi
+          typeE.innerHTML=sunhuaiqingkuang[i].type
+          qingkuangE.innerHTML=sunhuaiqingkuang[i].qingkuang
+          unitE.innerHTML=sunhuaiqingkuang[i].unit
+          sunhuai_box_item.appendChild(dateE)
+          sunhuai_box_item.appendChild(workerE)
+          sunhuai_box_item.appendChild(idE)
+          sunhuai_box_item.appendChild(nameE)
+          sunhuai_box_item.appendChild(beginE)
+          sunhuai_box_item.appendChild(endE)
+          sunhuai_box_item.appendChild(weizhiE)
+          sunhuai_box_item.appendChild(typeE)
+          sunhuai_box_item.appendChild(qingkuangE)
+          sunhuai_box_item.appendChild(unitE)
+          sunhuai_box.appendChild(sunhuai_box_item)
+        }
+      }
+
+    }
+
+  </script>
+
+</body>  
