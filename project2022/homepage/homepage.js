@@ -1,6 +1,6 @@
 
 function exit_btn(){
-    window.location.href="E:/work/project2022/index/index.html";
+    window.location.href="../index/index.html";
 }
 function road_info_btn(){
     document.getElementById("my-h2").style.display="none"
@@ -37,7 +37,7 @@ function damage_management_btn(){
     document.getElementById("box-item3").style.backgroundColor="40A9FF"
 }
 function statement_btn(){
-    window.location.href="E:/work/project2022/baogao.html";
+    window.location.href="../baogao.html";
 }
 function daily_btn(){
     document.getElementById("item-daily").style.backgroundColor="40A9FF"
